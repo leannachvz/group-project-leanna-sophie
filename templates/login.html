@@ -1,0 +1,20 @@
+<html>
+    <head>
+    </head>
+    <body>
+
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <b>{{message}}</b>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        <h1>Enter username to login!</h1>
+        <form method="POST" action="/login_verification">
+            <input type="text" name ="user_id" id="user_id" placeholder="Username" />
+            <input type="submit" value="Login" />
+        </form>
+    </body>
+</html>
