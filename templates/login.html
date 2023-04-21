@@ -1,21 +1,32 @@
-<html>
-    <head>
-    </head>
-    <body>
+<!DOCTYPE html>
+<html lang="en-US">
 
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            {% for message in messages %}
-                <b>{{message}}</b>
-            {% endfor %}
-        {% endif %}
-        {% endwith %}
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width" />
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300|Sonsie+One" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
 
-        <h1>Enter username to login!</h1>
-        <form method="POST" action="/login_verification">
-            <input type="text" name ="user_id" id="user_id" placeholder="Username" />
+<body>
+
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+  {% for message in messages %}
+  <b>{{message}}</b>
+  {% endfor %}
+  {% endif %}
+  {% endwith %}
+
+  <header>
+    <h1>Catch Up!</h1>
+    <h2>Login to catch up with your loved ones</h2>
+  </header>
+  <form method="POST" action="/login_verification">
+    <input type="text" name="user_id" id="user_id" placeholder="Username" />
             <input type="text" name ="password" id="password" placeholder="Password" />
-            <input type="submit" value="Login" />
-        </form>
-    </body>
+    <input type="submit" value="Login" />
+  </form>
+</body>
+
 </html>

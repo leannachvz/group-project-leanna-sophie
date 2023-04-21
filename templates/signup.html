@@ -1,20 +1,26 @@
 <html>
-    <head>
-    </head>
-    <body>
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            {% for message in messages %}
-                <b>{{message}}</b>
-            {% endfor %}
-        {% endif %}
-        {% endwith %}
 
-        <h1>Enter a username to sign up with!</h1>
-        <form method="POST" action="/signup_check">
-            <input type="text" name ="user_id" placeholder="Username" />
+<head>
+</head>
+
+<body>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages %}
+    <b>{{message}}</b>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    <header>
+        <h1>Catch Up!</h1>
+        <h2>Sign up to catch up with your loved ones</h2>
+    </header>
+    <form method="POST" action="/signup_check">
+        <input type="text" name="user_id" placeholder="Username" />
             <input type="text" name ="password" placeholder="Password" />
-            <input type="submit" value="Sign Up" />
-        </form>
-    </body>
+        <input type="submit" value="Sign Up" />
+    </form>
+</body>
+
 </html>
