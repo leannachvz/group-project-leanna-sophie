@@ -1,18 +1,30 @@
-<html>
+<!DOCTYPE html>
+<html lang="en-US">
 
-<head></head>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300|Sonsie+One" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+</head>
 
 <body>
     <header>
-        <h1>Catch Up!</h1>
-        <h2>Log in or Sign up to catch up with your loved ones</h2>
+        <h1>CatchUp</h1>
+        <h3>Log in or Sign up to catch up with your loved ones!</h3>
     </header>
-    <form method="POST" action="/login">
-        <input type="submit" value="Login" />
-    </form>
-    <form method="POST" action="/signup">
-        <input type="submit" value="Sign up">
-    </form>
+    <main>
+        <div class="box">
+            <h1>Which one?</h1>
+            <form method="POST" action="/login">
+                <input type="submit" value="Login" />
+            </form>
+            <form method="POST" action="/signup">
+                <input type="submit" value="Sign up">
+            </form>
+    </main>
+    </div>
+    <footer>&copy:2023. All Rights Reserved</footer>
 </body>
 
 </html>
