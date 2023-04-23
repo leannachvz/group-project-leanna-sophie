@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width" />
   <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300|Sonsie+One" rel="stylesheet" />
   <link rel="stylesheet" href="http://127.0.0.1:5000/static/style.css" />
+
 </head>
 
 <body>
@@ -19,14 +20,41 @@
   {% endwith %}
 
   <header>
-    <h1>Catch Up!</h1>
-    <h2>Login to catch up with your loved ones</h2>
+    <h1>CatchUp</h1>
+    <h3>Login to catch up with your loved ones!</h3>
   </header>
-  <form method="POST" action="/login_verification">
-    <input type="text" name="user_id" id="user_id" placeholder="Username" />
-    <input type="text" name="password" id="password" placeholder="Password" />
-    <input type="submit" value="Login" />
-  </form>
+  <nav>
+    <div class="theme-switch">
+      <input type="checkbox" class="checkbox" id="checkbox" />
+      <label for="checkbox" class="label">
+        <ion-icon name="partly-sunny-outline" class="sun"></ion-icon>
+        <ion-icon name="moon-outline" class="moon"></ion-icon>
+        <div class="switcher"></div>
+      </label>
+    </div>
+  </nav>
+  <main>
+    <div class="box">
+      <h3>Enter a username to get started</h3>
+      <form method="POST" action="/login_verification">
+        <input type="text" name="user_id" id="user_id" placeholder="Username" />
+        <input type="text" name="password" id="password" placeholder="Password" />
+        <input type="submit" value="Login" />
+      </form>
+  </main>
+  <footer>&copy;2023. All Rights Reserved</footer>
+  <script>
+    const checkbox = document.querySelector("#checkbox");
+
+    checkbox.addEventListener("change", () => {
+      // Toggle website theme
+      document.body.classList.toggle("dark");
+    });
+  </script>
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+</body>
+
+</html>
 </body>
 
 </html>
