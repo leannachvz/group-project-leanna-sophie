@@ -44,8 +44,6 @@
     <article>
       <!-- where the circle html goes-->
       <h3> Click on your inner circles' circle</h3>
-
-
       <!-- <div class="split left">-->
       <div class="centered" id="container">
         <!--       <h2>Demo</h2>-->
@@ -64,71 +62,60 @@
         </div>
     </article>
   </section>
+
+
+
+
+
+
+
+
+
+
+
+
+  <!--add circle html here-->
+  <h4>{{ current_user }}</h4>
+
+  <!--Should print friends below VVV-->
+
+  <body>
+    <table>
+      <thead>
+        <tr>
+          <th>Username</th>
+          <th>Code</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for friend in friends %}
+        <tr>
+          <td>{{ friend.username }}</td>
+          <td>{{ friend.code }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </body>
+  </article>
+  </section>
+
+
+
+
+
   <!--replace the paragraph with the liscencing footer -->
   <footer>&copy;2023. All Rights Reserved</footer>
   <script src="script.js"></script>
+
+
+  <!-- Include the js here -->
+  <script src="adjustSize.js"></script>
+  <script src="anime.min.js"></script>
+  <script src="circleCollision.js"></script>
+  <!--&lt;!&ndash; here goes your js to call adjustSize &ndash;&gt;-->
+  <script src="input.js"></script>
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 </body>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--add circle html here-->
-<h4>{{ current_user }}</h4>
-
-<!--Should print friends below VVV-->
-
-<body>
-  <table>
-    <thead>
-      <tr>
-        <th>Username</th>
-        <th>Code</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for friend in friends %}
-      <tr>
-        <td>{{ friend.username }}</td>
-        <td>{{ friend.code }}</td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-</body>
-</article>
-</section>
-
-
-
-
-
-<!--replace the paragraph with the liscencing footer -->
-<div class="footer">
-  <p>Footer</p>
-</div>
-</body>
-
-<!-- Include the js here -->
-<script src="adjustSize.js"></script>
-<script src="anime.min.js"></script>
-<script src="circleCollision.js"></script>
-<!--&lt;!&ndash; here goes your js to call adjustSize &ndash;&gt;-->
-<script src="input.js"></script>
-<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 
 </html>
