@@ -121,6 +121,7 @@ def homepage():
    username = flask_login.current_user.id
    user = UserDB.query.filter_by(username=username).first()
    code = user.userCode
+   
    friends = user.get_friends()
 
    #f"unique code is {code}"
