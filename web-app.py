@@ -47,6 +47,7 @@ class UserDB(db.Model):
     username = db.Column(db.String(80), unique=True, primary_key=True, nullable=False)
     password = db.Column(db.String(10), unique=False, nullable=False)
     userCode = db.Column(db.String(10), unique=True)
+    friends = db.Column(db.String(15), unique=True, nullable = True)
 
     def __repr__(self) -> str:
         return f"Person with username: {self.username} "
@@ -108,12 +109,18 @@ def sign_up_check():
       flask.flash("Sign up was successful! Enter your username to login!")
       return flask.redirect(flask.url_for("login"))
    
-@app.route("/code_page")
+@app.route("/home_page")
 def code_creator():
    username = flask_login.current_user.id
    user = UserDB.query.filter_by(username=username).first()
    code = user.userCode
-   return f"unique code is {code}"
+   #friends_list = UserDB.query.filter_by(friends)
+   #f"unique code is {code}"
+   return flask.render_template("homepage.html", current_user=username)
+
+@app.route("/convo")
+def convo_page():
+    return f"hey"
 
 def user_exists(username):
    user = UserDB.query.filter_by(username=username).first()
