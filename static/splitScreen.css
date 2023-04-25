@@ -1,0 +1,52 @@
+html, body {
+    height: 100%;
+}
+
+/* Split the screen in half */
+.split {
+    height:100%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+  overflow: hidden;
+}
+
+/* Control the left side */
+/*.left {
+    width: 80%;
+    left: 0;
+    background-color: black;
+    color: white;
+}
+
+/* Control the right side */
+/*.right {
+    width: 20%;
+    right: 0;
+    background-color: white;
+    color: black;
+}/*
+
+/* content centered horizontally and vertically */
+.centered, article {
+    text-align: center;
+    height:auto;
+    width:auto;
+}
+
+@media (max-aspect-ratio: 1/1) {
+    .split {
+        width: 100%;
+        left: 0;
+    }
+
+    .left {
+        height: 70%;
+        top: 0;
+    }
+
+    .right {
+        top: 70%;
+        height: 30%;
+    }
+}
