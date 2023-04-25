@@ -10,15 +10,15 @@
 </head>
 
 <body>
-
-  {% with messages = get_flashed_messages() %}
-  {% if messages %}
-  {% for message in messages %}
-  <b>{{message}}</b>
-  {% endfor %}
-  {% endif %}
-  {% endwith %}
-
+  <!--
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages %}
+    <b>{{message}}</b>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+-->
   <header>
     <h1>CatchUp</h1>
     <h3>Login to catch up with your loved ones!</h3>
@@ -52,9 +52,6 @@
     });
   </script>
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-</body>
-
-</html>
 </body>
 
 </html>
