@@ -47,10 +47,20 @@ class UserDB(db.Model):
     username = db.Column(db.String(80), unique=True, primary_key=True, nullable=False)
     password = db.Column(db.String(10), unique=False, nullable=False)
     userCode = db.Column(db.String(10), unique=True)
-    friends = db.Column(db.String(15), unique=True, nullable = True)
+    friends = db.relationship('Friend', backref='user', lazy = True)
 
     def __repr__(self) -> str:
         return f"Person with username: {self.username} "
+
+    def get_friends(self):
+        return [f.friend_name for f in self.friends]
+    
+
+class Friend(db.Model):
+    code = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(80), db.ForeignKey('user_db.username'), nullable=False)
+    friend_name = db.Column(db.String(80), nullable=False)
+
 
 with app.app_context():
     db.create_all()
@@ -72,12 +82,9 @@ def create_user(username, password):
    flask_login.current_user.userCode = userCode
    db.session.commit()
 
-   
-   
 @app.route("/login", methods=["POST", "GET"])
 def login():
-      return flask.render_template("login.html")
-   
+      return flask.render_template("login.html") 
 
 @app.route("/signup", methods=["POST", "GET"])
 def sign_up():
@@ -114,13 +121,26 @@ def code_creator():
    username = flask_login.current_user.id
    user = UserDB.query.filter_by(username=username).first()
    code = user.userCode
-   #friends_list = UserDB.query.filter_by(friends)
+   friends = user.get_friends()
+
    #f"unique code is {code}"
-   return flask.render_template("homepage.html", current_user=username)
+   return flask.render_template("homepage.html", current_user=username, friends=friends)
 
 @app.route("/convo")
 def convo_page():
     return f"hey"
+
+def add_friend(friend_code):
+    current_user = flask_login.current_user
+    friend = UserDB.query.filter_by(userCode=friend_code).first()
+
+    if friend and friend != current_user and friend not in current_user.friends:
+        current_user.friends.append(friend)
+        db.session.commit()
+        return True
+    else:
+        return False
+
 
 def user_exists(username):
    user = UserDB.query.filter_by(username=username).first()
