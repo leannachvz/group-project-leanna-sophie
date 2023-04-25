@@ -177,6 +177,7 @@ def code_page():
 @app.route('/logout')
 def logout():
     flask_login.logout_user()
-    return 'Logged out'
+    flask.flash(f"You were logged out successfully!")
+    return flask.render_template("welcome.html")
 
 app.run()
