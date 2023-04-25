@@ -56,7 +56,12 @@
   </section>
 
 
-
+  <form method="post" action="{{ url_for('add_friend') }}">
+    <label for="friend_code">Enter friend's code:</label>
+    <input type="text" name="friend_code" id="friend_code">
+    <input type="submit" value="Add Friend">
+  </form>
+  
 
 
   <!--replace the paragraph with the liscencing footer -->

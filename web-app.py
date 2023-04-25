@@ -140,6 +140,15 @@ def add_friend(friend_code):
         return True
     else:
         return False
+    
+@app.route("/add_friend", methods=["POST"])
+def add_friend_route():
+    friend_code = flask.request.form["friend_code"]
+    if add_friend(friend_code):
+        flask.flash(f"Friend with code {friend_code} added successfully!")
+    else:
+        flask.flash(f"Failed to add friend with code {friend_code}.")
+    return flask.redirect(flask.url_for("homepage"))
 
 
 def user_exists(username):
