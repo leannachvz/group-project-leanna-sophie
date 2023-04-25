@@ -32,6 +32,25 @@
       <h3> Click on your inner circles' circle</h3>
       <!--add circle html here-->
       <h4>{{ current_user }}</h4>
+      <!--Should print friends below VVV-->
+      <body>
+        <table>
+          <thead>
+            <tr>
+              <th>Username</th>
+              <th>Code</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for friend in friends %}
+            <tr>
+              <td>{{ friend.username }}</td>
+              <td>{{ friend.code }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+      </table>
+      </body>
     </article>
   </section>
 
