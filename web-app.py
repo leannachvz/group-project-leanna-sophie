@@ -36,8 +36,8 @@ def user_loader(username):
 @login_manager.request_loader
 def request_loader(request):
     email = request.form.get('user_id')
-    if not user_exists(email):
-        return
+    if not email or not user_exists(email):
+        return None
 
     user = User()
     user.id = email
@@ -131,25 +131,17 @@ def convo_page():
     return f"hey"
 
 def add_friend(friend_code):
-    current_user = flask_login.current_user
+    current_user = flask_login.current_user.id
+    user = UserDB.query.filter_by(username=current_user).first()
     friend = UserDB.query.filter_by(userCode=friend_code).first()
 
-    if friend and friend != current_user and friend not in current_user.friends:
-        current_user.friends.append(friend)
+    if friend and friend != current_user and friend not in user.friends:
+        user.friends.append(friend)
         db.session.commit()
         return True
     else:
         return False
     
-@app.route("/add_friend", methods=["POST"])
-def add_friend_route():
-    friend_code = flask.request.form["friend_code"]
-    if add_friend(friend_code):
-        flask.flash(f"Friend with code {friend_code} added successfully!")
-    else:
-        flask.flash(f"Failed to add friend with code {friend_code}.")
-    return flask.redirect(flask.url_for("homepage"))
-
 @app.route("/add_friend", methods=["POST"])
 def add_friend_route():
     friend_code = flask.request.form["friend_code"]
