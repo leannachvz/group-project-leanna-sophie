@@ -99,7 +99,7 @@ def login_verification():
       user.id = username
       flask_login.login_user(user)
       #flask_login.login_remembered()
-      return flask.redirect(flask.url_for("code_creator"))
+      return flask.redirect(flask.url_for("homepage"))
    else:
       flask.flash("Invalid user credential. Try again!")
       return flask.redirect(flask.url_for("login"))
@@ -117,7 +117,7 @@ def sign_up_check():
       return flask.redirect(flask.url_for("login"))
    
 @app.route("/home_page")
-def code_creator():
+def homepage():
    username = flask_login.current_user.id
    user = UserDB.query.filter_by(username=username).first()
    code = user.userCode
@@ -150,6 +150,14 @@ def add_friend_route():
         flask.flash(f"Failed to add friend with code {friend_code}.")
     return flask.redirect(flask.url_for("homepage"))
 
+@app.route("/add_friend", methods=["POST"])
+def add_friend_route():
+    friend_code = flask.request.form["friend_code"]
+    if add_friend(friend_code):
+        flask.flash(f"Friend with code {friend_code} added successfully!")
+    else:
+        flask.flash(f"Failed to add friend with code {friend_code}.")
+    return flask.redirect(flask.url_for("homepage"))
 
 def user_exists(username):
    user = UserDB.query.filter_by(username=username).first()
