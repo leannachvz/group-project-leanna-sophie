@@ -7,6 +7,7 @@ import json
 import random
 import flask
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.dialects.postgresql import ARRAY
 
 load_dotenv(find_dotenv()) #loads .env file in path
 
@@ -47,21 +48,16 @@ class UserDB(db.Model):
     username = db.Column(db.String(80), unique=True, primary_key=True, nullable=False)
     password = db.Column(db.String(10), unique=False, nullable=False)
     userCode = db.Column(db.String(10), unique=True)
-    friends = db.relationship('Friend', backref='user', lazy = True)
-
+    friends = db.relationship('Friend', backref='user', lazy=True)
+    
     def __repr__(self) -> str:
         return f"Person with username: {self.username} "
 
-    def get_friends(self):
-        return [f.friend_name for f in self.friends]
-    
-
 class Friend(db.Model):
-    code = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), db.ForeignKey('user_db.username'), nullable=False)
-    friend_name = db.Column(db.String(80), nullable=False)
-
-
+    friend_username = db.Column(db.String(80), nullable=False)
+    
 with app.app_context():
     db.create_all()
 
@@ -119,12 +115,7 @@ def sign_up_check():
 @app.route("/home_page")
 def homepage():
    username = flask_login.current_user.id
-   user = UserDB.query.filter_by(username=username).first()
-   code = user.userCode
-
-   friends = user.get_friends()
-
-   #f"unique code is {code}"
+   friends = Friend.query.filter_by(username=username).all()
    return flask.render_template("homepage.html", current_user=username, friends=friends)
 
 @app.route("/convo")
@@ -132,12 +123,17 @@ def convo_page():
     return f"hey"
 
 def add_friend(friend_code):
-    current_user = flask_login.current_user.id
-    user = UserDB.query.filter_by(username=current_user).first()
-    friend = UserDB.query.filter_by(userCode=friend_code).first()
-
-    if friend and friend != current_user and friend not in user.friends:
-        user.friends.append(friend)
+    current_user = flask_login.current_user.id #username
+    user = UserDB.query.filter_by(username=current_user).first() #user object
+    user_friend_list = user.friends if user.friends else []
+    friend = UserDB.query.filter_by(userCode=friend_code).first() #looking for friend code in DB
+    if friend is not None and friend.userCode != user.userCode and friend.username not in user_friend_list:
+        user_new_friend = Friend(username=user.username, friend_username=friend.username)
+        friend_new_friend = Friend(username=friend.username, friend_username=user.username)
+        user.friends.append(user_new_friend)
+        friend.friends.append(friend_new_friend)
+        db.session.add(user_new_friend)
+        db.session.add(friend_new_friend)
         db.session.commit()
         return True
     else:
@@ -147,10 +143,11 @@ def add_friend(friend_code):
 def add_friend_route():
     friend_code = flask.request.form["friend_code"]
     if add_friend(friend_code):
-        flask.flash(f"Friend with code {friend_code} added successfully!")
+        return flask.redirect(flask.url_for("homepage"))
+        # flask.flash(f"Friend with code {friend_code} added successfully!")
     else:
-        flask.flash(f"Failed to add friend with code {friend_code}.")
-    return flask.redirect(flask.url_for("homepage"))
+        return flask.redirect(flask.url_for("index"))
+        #flask.flash(f"Failed to add friend with code {friend_code}.")
 
 def user_exists(username):
    user = UserDB.query.filter_by(username=username).first()
