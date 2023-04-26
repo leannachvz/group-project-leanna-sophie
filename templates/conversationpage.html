@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Include the css here -->
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300|Sonsie+One" rel="stylesheet" />
+    <link rel="stylesheet" href="http://127.0.0.1:5000/static/style.css" />
+</head>
+
+<body>
+    <header>
+        <h1>Conversation Page</h1>
+        <h2>Check in on your friend with a quick voice memo!</h2>
+    </header>
+
+    <!-- nav bar html sub the # for the rendered html pages for the drop down menu-->
+    <nav>
+        <div class="dropdown" style="float:right;">
+            <button class="dropbtn">Dropdown</button>
+            <div class="dropdown-content">
+                <a href="#">Homepage</a>
+                <a href="/mycodepage">My Code Page</a>
+                <a href="#">Log Out</a>
+            </div>
+        </div>
+
+        <div class="theme-switch">
+            <input type="checkbox" class="checkbox" id="checkbox" />
+            <label for="checkbox" class="label">
+                <ion-icon name="partly-sunny-outline" class="sun"></ion-icon>
+                <ion-icon name="moon-outline" class="moon"></ion-icon>
+                <div class="switcher"></div>
+            </label>
+        </div>
+
+    </nav>
+    <main>
+        <audio controls>
+
+        </audio>
+    </main>
+    <div>
+        <h3> Press button to record audio!</h3>
+        <button id="record-btn" onclick="startRecording()">Record</button>
+
+    </div>
+    <!--liscencing footer -->
+    <footer>&copy;2023. All Rights Reserved</footer>
+    <script>
+        const checkbox = document.querySelector("#checkbox");
+
+        checkbox.addEventListener("change", () => {
+            // Toggle website theme
+            document.body.classList.toggle("dark");
+        });
+    </script>
+    <script src="script.js"></script>
+</body>
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+</body>
+
+</html>
