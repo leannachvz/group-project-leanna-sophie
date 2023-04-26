@@ -118,9 +118,18 @@ def homepage():
    friends = Friend.query.filter_by(username=username).all()
    return flask.render_template("homepage.html", current_user=username, friends=friends)
 
-@app.route("/convo")
+@app.route("/convo", methods=["GET", "POST"])
 def convo_page():
-    return f"hey"
+    if flask.request.method == "GET":
+        return "This is a GET request"
+    elif flask.request.method == "POST":
+        return flask.redirect(flask.url_for("convo_by_user"))
+
+@app.route("/convowithfren", methods=["POST"])
+def convo_by_user():
+    username = flask_login.current_user.id
+    friend_username = flask.request.form["friend_name"]
+    return flask.render_template("conversationpage.html", current_user=username, friendname=friend_username)
 
 def add_friend(friend_code):
     current_user = flask_login.current_user.id #username

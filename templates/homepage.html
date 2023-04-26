@@ -187,7 +187,20 @@
       // when circle is appended to HTML, adjust its size
       // use higher order function here will cause IE to crash
       circle.addEventListener('DOMNodeInserted', function () { adjustSize(circle) });
-      circle.addEventListener('click', function() { window.location.href = "http://127.0.0.1:5000/convo";});
+      circle.addEventListener('click', function() { 
+        const friendform = document.createElement("form");
+        const friendClicked = text.innerHTML;
+        friendform.setAttribute("method", "POST");
+        friendform.setAttribute("action", "/convowithfren");
+        const inputElement = document.createElement("input");
+        inputElement.setAttribute("type", "hidden");
+        inputElement.setAttribute("name", "friend_name");
+        inputElement.setAttribute("value", friendClicked);
+        friendform.appendChild(inputElement);
+        document.body.appendChild(friendform);
+        friendform.submit();
+        //window.location.href = "http://127.0.0.1:5000/convo";
+      });
       return circle;
     }
   </script>
