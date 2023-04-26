@@ -63,51 +63,8 @@
     </article>
   </section>
 
-
-  <form method="POST" action="/add_friend">
-    <label for="friend_code">Enter friend's code:</label>
-    <input type="text" name="friend_code" id="friend_code">
-    <input type="submit" value="Add Friend">
-  </form>
-
-
-
-
-
-
-
-
-
-
   <!--add circle html here-->
-  <h4>{{ current_user }}</h4>
-
-  <!--Should print friends below VVV-->
-{% if friends %}
-  <body>
-    <table>
-      <thead>
-        <tr>
-          <th>Username</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for friend in friends %}
-        <tr>
-          <td>{{ friend.friend_username }}</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </body>
-  {% endif %}
-  </article>
-  </section>
-
-
-
-
-
+ 
   <!--replace the paragraph with the liscencing footer -->
   <footer>&copy;2023. All Rights Reserved</footer>
   <script src="script.js"></script>
@@ -749,21 +706,32 @@
   <!--&lt;!&ndash; here goes your js to call adjustSize &ndash;&gt;-->
   <script src="input.js"></script>
   <script>
+    const currentUser = "{{ current_user }}";
+    const friendList = [
+      {% for friend in friends %}
+        "{{friend.friend_username }}",
+      {% endfor %}
+    ];
     circleManager = new CircleManager('circles');
-    circleManager.add("Friend 1!!!!");
-    circleManager.add("Person 2!!");
-    circleManager.add("Friend 3", 1000);
-    circleManager.add("Person 4!!!", 2000);
-    circleManager.add("Friend 5!!!!!", 5000);
-    circleManager.add("Person 6!", 10000);
-    circleManager.add("Friend 7!!!", 20000);
+    circleManager.add(currentUser);
+    friendList.forEach(friend => circleManager.add(friend))
 
     document.getElementById('button').onclick = () => {
       const input = document.getElementById('input');
       const text = input.value;
       input.value = "";
       if (text) {
-        circleManager.add(text);
+        const form = document.createElement("form");
+        form.setAttribute("method", "POST");
+        form.setAttribute("action", "/add_friend");
+        const inputElement = document.createElement("input");
+        inputElement.setAttribute("type", "text");
+        inputElement.setAttribute("name", "friend_code");
+        inputElement.setAttribute("value", text);
+        form.appendChild(inputElement);
+        document.body.appendChild(form);
+        form.submit();
+        /*circleManager.add(text);*/
       }
     }
   </script>
