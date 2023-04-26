@@ -23,9 +23,9 @@
     <div class="dropdown" style="float:right;">
       <button class="dropbtn">Dropdown</button>
       <div class="dropdown-content">
-        <a href="#">Homepage</a>
+        <a href="/home_page">Homepage</a>
         <a href="/mycodepage">My Code Page</a>
-        <a href="#">Log Out</a>
+        <a href="/logout">Log Out</a>
       </div>
     </div>
 
@@ -64,7 +64,7 @@
   </section>
 
 
-  <form method="POST" action="{{ url_for('add_friend_route') }}">
+  <form method="POST" action="/add_friend">
     <label for="friend_code">Enter friend's code:</label>
     <input type="text" name="friend_code" id="friend_code">
     <input type="submit" value="Add Friend">
@@ -83,25 +83,24 @@
   <h4>{{ current_user }}</h4>
 
   <!--Should print friends below VVV-->
-
+{% if friends %}
   <body>
     <table>
       <thead>
         <tr>
           <th>Username</th>
-          <th>Code</th>
         </tr>
       </thead>
       <tbody>
         {% for friend in friends %}
         <tr>
-          <td>{{ friend.username }}</td>
-          <td>{{ friend.code }}</td>
+          <td>{{ friend.friend_username }}</td>
         </tr>
         {% endfor %}
       </tbody>
     </table>
   </body>
+  {% endif %}
   </article>
   </section>
 
