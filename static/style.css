@@ -269,3 +269,13 @@ pre {
   margin: 0;
   white-space: pre-wrap;
 }
+
+record-btn{
+  font-size: 2em;
+  padding: 20px;
+  align-content: center;
+}
+.play-stop{
+  padding-top: 10px;
+  text-align: center;
+}
