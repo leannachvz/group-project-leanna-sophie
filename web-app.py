@@ -1,13 +1,6 @@
 import requests
 import flask_login
 import string
-import base64
-import wave
-from pydub import AudioSegment
-from psycopg2 import Binary, connect
-from io import BytesIO
-from flask import Flask, send_file
-from flask import request
 from os import getenv
 from dotenv import load_dotenv, find_dotenv
 import json
@@ -15,8 +8,6 @@ import random
 import flask
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.dialects.postgresql import ARRAY
-from sqlalchemy.dialects.postgresql import BYTEA
-
 
 load_dotenv(find_dotenv()) #loads .env file in path
 
@@ -66,14 +57,7 @@ class Friend(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), db.ForeignKey('user_db.username'), nullable=False)
     friend_username = db.Column(db.String(80), nullable=False)
-
-class Recording(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.String(10), unique = False)
-    friend_id = db.Column(db.String(10), unique = False)
-    blob_data = db.Column(db.LargeBinary, nullable = False)
-
-
+    
 with app.app_context():
     db.create_all()
 
@@ -145,30 +129,10 @@ def convo_page():
 def convo_by_user():
     username = flask_login.current_user.id
     friend_username = flask.request.form["friend_name"]
-    incomingMsg = Recording.query.filter_by(user_id=friend_username, friend_id=username).first()
     if friend_username == username:
         return flask.redirect(flask.url_for("code_page"))
     else:
-        if incomingMsg:
-            friend_msg = incomingMsg.blob_data.decode('latin-1')
-            return flask.render_template("conversationpage.html", current_user=username, friendname=friend_username, incomingMsg=friend_msg)
-        else:
-            return flask.render_template("conversationpage.html", current_user=username, friendname=friend_username)
-
-@app.route('/save-recording', methods=['POST'])
-def save_recording():
-    try:
-        data = request.files['audio']
-        audio_data = data.read()
-        with wave.open(data, 'rb') as audio_file:
-            print(audio_file.getparams())
-        friendname = request.form.get('friendname')
-        recording = Recording(user_id=flask_login.current_user.id, friend_id=friendname, blob_data=audio_data)
-        db.session.add(recording)
-        db.session.commit()
-        return 'OK'
-    except Exception as e:
-        return 'Error', 500
+        return flask.render_template("conversationpage.html", current_user=username, friendname=friend_username)
 
 def add_friend(friend_code):
     current_user = flask_login.current_user.id #username
