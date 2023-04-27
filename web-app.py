@@ -129,7 +129,10 @@ def convo_page():
 def convo_by_user():
     username = flask_login.current_user.id
     friend_username = flask.request.form["friend_name"]
-    return flask.render_template("conversationpage.html", current_user=username, friendname=friend_username)
+    if friend_username == username:
+        return flask.redirect(flask.url_for("code_page"))
+    else:
+        return flask.render_template("conversationpage.html", current_user=username, friendname=friend_username)
 
 def add_friend(friend_code):
     current_user = flask_login.current_user.id #username
