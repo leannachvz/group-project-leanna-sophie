@@ -129,10 +129,22 @@ def convo_page():
 def convo_by_user():
     username = flask_login.current_user.id
     friend_username = flask.request.form["friend_name"]
+    DUCK_API_BASEURL = "https://random-d.uk/api/v2"
+    DUCK_API_PATH = "/random"
+    duck_response = requests.get(
+        DUCK_API_BASEURL + DUCK_API_PATH,
+        params={
+            "type":"GIF",
+        },
+    )
+    #duck_info = {}
+    duck_list = str(duck_response.json())
+
+    
     if friend_username == username:
         return flask.redirect(flask.url_for("code_page"))
     else:
-        return flask.render_template("conversationpage.html", current_user=username, friendname=friend_username)
+        return flask.render_template("conversationpage.html", current_user=username, friendname=friend_username, duckstuff=duck_list)
 
 def add_friend(friend_code):
     current_user = flask_login.current_user.id #username
