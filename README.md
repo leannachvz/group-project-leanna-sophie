@@ -1,5 +1,11 @@
 # group-project-leanna-sophie
-Link to public GitHub repo: https://github.com/leannachvz/group-project-leanna-sophie.git
+Link to public GitHub repo: 
+https://github.com/leannachvz/group-project-leanna-sophie.git
+
+
+Link to Group Project Planning: 
+https://docs.google.com/document/d/1EzQYBhx2v8DZeIkUp8acR271bALUosetRggFOMTe83w/edit?usp=sharing
+
 
 Sophia's pull request links:
 

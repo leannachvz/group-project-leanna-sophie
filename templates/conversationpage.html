@@ -50,21 +50,14 @@
 
 
         <div class="friendaudio" style="float:left;">
-        <audio controls>
-            <source src="viper.mp3" type="audio/mp3">
-            <source src="viper.ogg" type="audio/ogg">
-            <p>Your browser doesn't support HTML5 audio. Here is a <a href="viper.mp3">link to the audio</a> instead.</p> 
-          </audio>
+
+            <button id="play-friend-btn">Play</button>
+            <audio id="friend-audio" controls>
+                <source src="data:audio/wav;base64,{{ audio_data}}" type="audio/wav">
+                <p>Your browser doesn't support HTML5 audio. Here is a <a href="viper.mp3">link to the audio</a> instead.</p> 
+            </audio>
         </div>
-        <div class="myaudio" style="float:right;">
-        <audio controls>
-            <source src="viper.mp3" type="audio/mp3">
-            <source src="viper.ogg" type="audio/ogg">
-            <p>Your browser doesn't support HTML5 audio. Here is a <a href="viper.mp3">link to the audio</a> instead.</p> 
-          </audio>
-        </div>
-        -->
-        
+
     </main>
     <div>
         <!--
@@ -90,6 +83,8 @@
             const recordButton = document.getElementById('record-btn');
             const playButton = document.getElementById('play-btn');
             const sendButton = document.getElementById('send-btn');
+            const playFriendButton = document.getElementById('play-friend-btn');
+            const friendAudioElement = document.getElementById('friend-audio');
 
             let mediaRecorder;
             let recordedChunks = [];
@@ -101,7 +96,7 @@
 
             const handleStop = (event) => {
                 console.log('stop');
-                const recordedBlob = new Blob(recordedChunks, { type: 'audio/x-wav' });
+                const recordedBlob = new Blob(recordedChunks, { type: 'audio/wav' });
                 playButton.disabled = false;
                 sendButton.disabled = false;
 
@@ -113,6 +108,11 @@
                     }, { once: true });
                 };
 
+                playFriendButton.onclick = () => {
+                    friendAudioElement.src = 'data:audio/wav;base64,' + '{{ audio_data }}';
+                    friendAudioElement.play();
+                };
+
                 playButton.onclick = () => {
                     const audioElement = document.createElement('audio');
                     audioElement.src = URL.createObjectURL(recordedBlob);
@@ -121,6 +121,19 @@
                 }
                 sendButton.onclick = () => {
                     // TODO: Send the recording data to another user or server
+                    const formData = new FormData();
+                    const friend_name = "{{ friendname }}";
+                    formData.append('audio', recordedBlob, 'recording.wav');
+                    formData.append('friendname', friend_name);
+
+                    fetch('/save-recording', {
+                        method: 'POST',
+                        body: formData
+                    }).then(response => {
+                        console.log('Recording saved successfully');
+                    }).catch(error => {
+                        console.error('Error saving recording:', error);
+                    });
                 }
             }
 
@@ -143,10 +156,78 @@
                 }
             }
 
+        </script> 
+        <!--<script>
+            import { Audio } from 'web-audio-api';
+            // Request microphone access
+            // Initialize variables
+            let recordedBlob;
+            const recordButton = document.getElementById('recordButton');
+            const sendButton = document.getElementById('sendButton');
+            const audioPlayer = document.getElementById('audioPlayer');
+
+            // Disable send button initially
+            sendButton.disabled = true;
+
+            // Record button click handler
+            recordButton.onclick = () => {
+                navigator.mediaDevices.getUserMedia({audio: true})
+                .then(stream => {
+                    const mediaRecorder = new MediaRecorder(stream);
+                    const chunks = [];
+
+                    mediaRecorder.start();
+
+                    recordButton.disabled = true;
+                    sendButton.disabled = true;
+
+                    console.log('Recording started');
+
+                    mediaRecorder.addEventListener('dataavailable', event => {
+                        chunks.push(event.data);
+                    });
+
+                    mediaRecorder.addEventListener('stop', () => {
+                        recordedBlob = new Blob(chunks, {type: 'audio/wav'});
+                        audioPlayer.src = URL.createObjectURL(recordedBlob);
+                        console.log('Recording stopped');
+
+                        recordButton.disabled = false;
+                        sendButton.disabled = false;
+                    });
+
+                    // Stop recording after 5 seconds
+                    setTimeout(() => {
+                        mediaRecorder.stop();
+                    }, 20000);
+                })
+                .catch(error => {
+                    console.error('Error accessing microphone:', error);
+                });
+            };
+
+            // Send button click handler
+            sendButton.onclick = () => {
+                // TODO: Send the recording data to another user or server
+                const formData = new FormData();
+                const friend_name = "{{ friendname }}";
+                formData.append('audio', recordedBlob, 'recording.wav');
+                formData.append('friendname', friend_name);
+
+                fetch('/save-recording', {
+                    method: 'POST',
+                    body: formData
+                }).then(response => {
+                    console.log('Recording saved successfully');
+                }).catch(error => {
+                    console.error('Error saving recording:', error);
+                });
+            };
         </script>
-        
+        -->
+
         <script>
-            //import React, { useState } from "react";
+            import React, { useState } from "react";
 
             function AudioPlayer(props) {
                 const [isPlaying, setIsPlaying] = useState(false);
