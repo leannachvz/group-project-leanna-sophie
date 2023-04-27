@@ -13,7 +13,7 @@
 <body>
     <header>
         <h1>Conversation Page for {{current_user}} with {{ friendname }}</h1>
-        <h2>Check in on your friend with a quick voice memo!</h2>
+        <h2>Check in on your friend with a quack pic!</h2>
     </header>
 
     <!-- nav bar html sub the # for the rendered html pages for the drop down menu-->
@@ -38,14 +38,19 @@
 
     </nav>
     <main>
+        <div class="myduck" style="float:right;">
+            <img src = {{duckstuff}}>
+        </div>
+        <!--
         <div class="myaudio" style="float:right;">
-            <!--<button id="toggle-recording">Start Recording</button>-->
+            <button id="toggle-recording">Start Recording</button>
             <button id="play-btn" disabled>Play</button>
             <button id="send-btn" disabled>Send</button>
         </div>
 
 
         <div class="friendaudio" style="float:left;">
+
             <button id="play-friend-btn">Play</button>
             <audio id="friend-audio" controls>
                 <source src="data:audio/wav;base64,{{ audio_data}}" type="audio/wav">
@@ -55,12 +60,13 @@
 
     </main>
     <div>
+        <!--
         <h3> Press button to record audio!</h3>
         <div class="play-stop">
             <button id="record-btn">Record</button>
 
-        </div>
-
+        </div> 
+        -->
         <!--liscencing footer -->
         <footer>&copy;2023. All Rights Reserved</footer>
         <script>
@@ -72,6 +78,7 @@
             });
         </script>
        
+       <!--
         <script>
             const recordButton = document.getElementById('record-btn');
             const playButton = document.getElementById('play-btn');
@@ -254,7 +261,8 @@
             export default AudioPlayer;
 
         </script>
-        
+        -->
+
         <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
         <script src="script.js"></script>
 
