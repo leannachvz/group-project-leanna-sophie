@@ -1,12 +1,6 @@
 import requests
 import flask_login
 import string
-import base64
-import wave
-from pydub import AudioSegment
-from psycopg2 import Binary, connect
-from io import BytesIO
-from flask import Flask, send_file
 from flask import request
 from os import getenv
 from dotenv import load_dotenv, find_dotenv
@@ -15,7 +9,6 @@ import random
 import flask
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.dialects.postgresql import ARRAY
-from sqlalchemy.dialects.postgresql import BYTEA
 
 
 load_dotenv(find_dotenv()) #loads .env file in path
