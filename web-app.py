@@ -138,7 +138,7 @@ def convo_by_user():
         },
     )
     #duck_info = {}
-    duck_list = str(duck_response.json())
+    duck_list = str(duck_response.json()["url"])
 
     
     if friend_username == username:

@@ -13,7 +13,7 @@
 <body>
     <header>
         <h1>Conversation Page for {{current_user}} with {{ friendname }}</h1>
-        <h2>Check in on your friend with a quick voice memo!</h2>
+        <h2>Check in on your friend with a quack pic!</h2>
     </header>
 
     <!-- nav bar html sub the # for the rendered html pages for the drop down menu-->
@@ -38,7 +38,9 @@
 
     </nav>
     <main>
-        <h1>{{duckstuff}}</h1>
+        <div class="myduck" style="float:right;">
+            <img src = {{duckstuff}}>
+        </div>
         <!--
         <div class="myaudio" style="float:right;">
             <button id="toggle-recording">Start Recording</button>
