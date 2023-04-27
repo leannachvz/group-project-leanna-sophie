@@ -163,15 +163,15 @@ def convo_by_user():
     else:
         return flask.render_template("conversationpage.html", current_user=username, friendname=friend_username, duckstuff=duck_list)
 
-    incomingMsg = Recording.query.filter_by(user_id=friend_username, friend_id=username).first()
-    if friend_username == username:
-        return flask.redirect(flask.url_for("code_page"))
-    else:
-        if incomingMsg:
-            friend_msg = incomingMsg.blob_data.decode('latin-1')
-            return flask.render_template("conversationpage.html", current_user=username, friendname=friend_username, incomingMsg=friend_msg)
-        else:
-            return flask.render_template("conversationpage.html", current_user=username, friendname=friend_username)
+    #incomingMsg = Recording.query.filter_by(user_id=friend_username, friend_id=username).first()
+    #if friend_username == username:
+    #    return flask.redirect(flask.url_for("code_page"))
+    #else:
+    #    if incomingMsg:
+    #       friend_msg = incomingMsg.blob_data.decode('latin-1')
+    #     return flask.render_template("conversationpage.html", current_user=username, friendname=friend_username, incomingMsg=friend_msg)
+    #   else:
+    #       return flask.render_template("conversationpage.html", current_user=username, friendname=friend_username)
 
 @app.route('/save-recording', methods=['POST'])
 def save_recording():
