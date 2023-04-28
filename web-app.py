@@ -147,14 +147,13 @@ def convo_by_user():
             "type":"GIF",
         },
     )
-    #duck_info = {}
-    duck_list = str(duck_response.json()["url"])
 
-    
+    duck_link = str(duck_response.json()["url"])
+
     if friend_username == username:
         return flask.redirect(flask.url_for("code_page"))
     else:
-        return flask.render_template("conversationpage.html", current_user=username, friendname=friend_username, duckstuff=duck_list)
+        return flask.render_template("conversationpage.html", current_user=username, friendname=friend_username, duckstuff=duck_link)
 
     #incomingMsg = Recording.query.filter_by(user_id=friend_username, friend_id=username).first()
     #if friend_username == username:
