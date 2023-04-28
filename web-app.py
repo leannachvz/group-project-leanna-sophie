@@ -150,6 +150,11 @@ def convo_by_user():
     #duck_info = {}
     duck_list = str(duck_response.json()["url"])
 
+    <button class="duck-randomizer-button">
+            <a href="{{duck_response}}"> "Click for a quack"</a>
+        </button>
+
+
     
     if friend_username == username:
         return flask.redirect(flask.url_for("code_page"))

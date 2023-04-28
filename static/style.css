@@ -279,3 +279,8 @@ record-btn{
   padding-top: 10px;
   text-align: center;
 }
+.duck-randomizer-button{
+  background-color: white;
+    color: black;
+    border: 2px solid #008CBA;
+}
