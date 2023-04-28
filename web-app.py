@@ -116,10 +116,13 @@ def sign_up_check():
    if user_exists(sign_up_username):# in users:
       flask.flash("That username already exists, enter a different username!")
       return flask.redirect(flask.url_for("sign_up"))
+   elif len(sign_up_password) > 10:
+        flask.flash("Password should not be longer than 10 characters!")
+        return flask.redirect(flask.url_for("sign_up"))
    else:
-      create_user(sign_up_username, sign_up_password)
-      flask.flash("Sign up was successful! Enter your username to login!")
-      return flask.redirect(flask.url_for("login"))
+       create_user(sign_up_username, sign_up_password)
+       flask.flash("Sign up was successful! Enter your username to login!")
+       return flask.redirect(flask.url_for("login"))
    
 @app.route("/home_page")
 def homepage():
@@ -242,4 +245,4 @@ def logout():
     flask.flash(f"You were logged out successfully!")
     return flask.render_template("welcome.html")
 
-app.run()
+#app.run()
