@@ -5,11 +5,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- Include the css here -->
-  <link rel="stylesheet" href="http://127.0.0.1:5000/static/adjustSize.css">
-  <link rel="stylesheet" href="http://127.0.0.1:5000/static/primary.css">
-  <link rel="stylesheet" href="http://127.0.0.1:5000/static/splitScreen.css">
+  <link rel="stylesheet" href="https://morning-sunset-7808.fly.dev/static/adjustSize.css">
+  <link rel="stylesheet" href="https://morning-sunset-7808.fly.dev/static/primary.css">
+  <link rel="stylesheet" href="https://morning-sunset-7808.fly.dev/static/splitScreen.css">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300|Sonsie+One" rel="stylesheet" />
-  <link rel="stylesheet" href="http://127.0.0.1:5000/static/style.css" />
+  <link rel="stylesheet" href="https://morning-sunset-7808.fly.dev/static/style.css" />
 </head>
 
 <body>
@@ -64,7 +64,7 @@
   </section>
 
   <!--add circle html here-->
- 
+
   <!--replace the paragraph with the liscencing footer -->
   <footer>&copy;2023. All Rights Reserved</footer>
   <script src="script.js"></script>
@@ -187,7 +187,7 @@
       // when circle is appended to HTML, adjust its size
       // use higher order function here will cause IE to crash
       circle.addEventListener('DOMNodeInserted', function () { adjustSize(circle) });
-      circle.addEventListener('click', function() { 
+      circle.addEventListener('click', function () {
         const friendform = document.createElement("form");
         const friendClicked = text.innerHTML;
         friendform.setAttribute("method", "POST");
@@ -723,7 +723,7 @@
     const currentUser = "{{ current_user }}";
     const friendList = [
       {% for friend in friends %}
-        "{{friend.friend_username }}",
+    "{{friend.friend_username }}",
       {% endfor %}
     ];
     circleManager = new CircleManager('circles');
