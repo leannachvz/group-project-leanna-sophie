@@ -23,6 +23,9 @@ Fly.io deployment link:
 
 https://morning-sunset-7808.fly.dev
 
+Command to deploy locally:
+FLASK_APP=web-app DATABASE_URL=postgresql://postgres:uwQVtrvSTfNK4DB@localhost:5432 flask run
+
 
 Things our team enjoyed about/learned from this project:
 

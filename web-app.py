@@ -170,8 +170,8 @@ def save_recording():
     try:
         data = request.files['audio']
         audio_data = data.read()
-        with wave.open(data, 'rb') as audio_file:
-            print(audio_file.getparams())
+        #with wave.open(data, 'rb') as audio_file:
+         #   print(audio_file.getparams())
         friendname = request.form.get('friendname')
         recording = Recording(user_id=flask_login.current_user.id, friend_id=friendname, blob_data=audio_data)
         db.session.add(recording)
